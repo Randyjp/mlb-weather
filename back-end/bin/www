@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+const mongoose = require('mongoose');
+
+/**
+ * Import environmental variables from our variables.env file
+ */
+//
+require('dotenv').config({ path: './variables.env' });
+mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
+mongoose.connect(process.env.DATABASE);
+mongoose.connection.on('error', (err) => {
+    console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+});
+
+// import your models
+require('../models/Venues');
 
 /**
  * Module dependencies.
@@ -8,11 +23,12 @@ const app = require('../app');
 const debug = require('debug')('back-end:server');
 const http = require('http');
 
+
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 
 /**
