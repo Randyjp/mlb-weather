@@ -13,6 +13,7 @@ class DropDown extends React.Component {
     };
     handleChange = (selectedOption) => {
         this.setState({selectedOption});
+        this.props.getWeather(selectedOption.value);
     };
 
     render() {
@@ -35,7 +36,8 @@ class DropDown extends React.Component {
 }
 
 DropDown.propTypes = {
-    venues: PropTypes.array.isRequired
+    venues: PropTypes.array.isRequired,
+    getWeather: PropTypes.func.isRequired,
 };
 
 export default DropDown;

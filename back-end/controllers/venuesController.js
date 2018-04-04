@@ -29,3 +29,14 @@ exports.getVenueByName = async (req, res) => {
 
     res.json(response.data);
 };
+
+exports.getWeatherByCity = async (req, res) => {
+    const key = process.env.WEATHER_KEY;
+    const {city_id} = req.params;
+
+    const url = `http://api.openweathermap.org/data/2.5/weather?id=${city_id}&APPID=${key}`;
+
+    const response = await axios(url);
+
+    res.json(response.data);
+};
