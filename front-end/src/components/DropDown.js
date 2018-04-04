@@ -34,4 +34,8 @@ class DropDown extends React.Component {
     }
 }
 
+DropDown.propTypes = {
+    venues: PropTypes.array.isRequired
+};
+
 export default DropDown;
