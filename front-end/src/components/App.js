@@ -1,22 +1,25 @@
 import React, {Component} from 'react';
-import './App.css';
+
+import DropDown from './DropDown';
 
 class App extends Component {
     state = {
-        users: []
+        venues: []
     };
 
     componentDidMount() {
-        fetch('/venues/miller')
+        fetch('/venues')
             .then(res => res.json())
-            .then(users => this.setState({users}));
+            .then(venues => this.setState({venues}));
     }
 
     render() {
+        const {venues} = this.state;
+
         return (
             <div className="App">
-                <h1>Users</h1>
-                {/*<pre>{this.state.users.weather[0]}</pre>*/}
+                <h1>MLB Venues</h1>
+                <DropDown venues={venues}/>
             </div>
         );
     }
