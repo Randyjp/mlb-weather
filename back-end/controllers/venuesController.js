@@ -1,10 +1,31 @@
 const mongoose = require('mongoose');
 const Venue = mongoose.model('Venue');
+const axios = require('axios');
+
+// getVenueWeather = async (city_id) => {
+//     const key = process.env.WEATHER_KEY;
+//
+//     const url = `http://api.openweathermap.org/data/2.5/forecast?id=${venue.open_wea_id}&APPID=${key}`;
+//     console.log(url);
+//     const response = await axios(url);
+//     console.log(response);
+//     return response.data;
+// };
 
 exports.getVenues = async (req, res) => {
-    console.log('m,msfd');
-    console.log(Venue);
     const venues = await Venue.find();
-    console.log(venues);
     res.json(venues);
+};
+
+exports.getVenueByName = async (req, res) => {
+    const key = process.env.WEATHER_KEY;
+    const {name} = req.params;
+
+    const venue = await Venue.findOne({name: new RegExp(name, 'i')});
+
+    const url = `http://api.openweathermap.org/data/2.5/weather?id=${venue.open_wea_id}&APPID=${key}`;
+
+    const response = await axios(url);
+
+    res.json(response.data);
 };

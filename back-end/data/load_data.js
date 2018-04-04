@@ -9,6 +9,20 @@ mongoose.Promise = global.Promise;
 const Venue = require('../models/Venues');
 
 const venues = JSON.parse(fs.readFileSync(__dirname + '/venues.json', 'utf-8'));
+const cities = JSON.parse(fs.readFileSync(__dirname + '/open_weather_city_list.json', 'utf-8'));
+
+const getCityId = (city_name) => {
+    console.log(city_name);
+    for (const city of cities) {
+        if (!(city.country === 'US' || city.country === 'CA')) continue;
+        if (city.name.toLowerCase() === city_name.toLowerCase()) {
+            console.log(typeof city.id);
+            console.log(city.id);
+            return city.id;
+        }
+    }
+};
+
 const real_venues = venues.map(({...venue}) => (
     {
         name: venue.name,
@@ -20,12 +34,13 @@ const real_venues = venues.map(({...venue}) => (
             ]
         },
         altitude: venue.altitude,
-        venue_w_chan_loc: venue.venue_w_chan_loc
+        open_wea_id: getCityId(venue.city)
     }
 ));
 
 async function load_data() {
     try {
+        console.log(real_venues);
         await Venue.insertMany(real_venues);
         process.exit();
     } catch (e) {

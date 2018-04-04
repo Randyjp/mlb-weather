@@ -7,6 +7,7 @@ const venueSchema = new mongoose.Schema({
         trim: true,
         index: true,
         unique: true,
+        lowercase: true,
         required: 'Please enter a venue name'
     },
     location: {
@@ -17,6 +18,7 @@ const venueSchema = new mongoose.Schema({
         city: {
             type: String,
             trim: true,
+            lowercase: true,
             required: 'Please enter a city name'
         },
         coordinates: [{
@@ -28,10 +30,10 @@ const venueSchema = new mongoose.Schema({
         type: Number,
         required: 'You must supply an altitude'
     },
-    venue_w_chan_loc: {
-        type: String,
+    open_wea_id: {
+        type: Number,
         trim: true,
-        required: 'Please enter a weather channel location'
+        required: 'Please enter an Open Weather City ID'
     },
 });
 
