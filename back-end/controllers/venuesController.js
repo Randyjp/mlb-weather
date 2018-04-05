@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
-const Venue = mongoose.model('Venue');
 const axios = require('axios');
+
+const Venue = mongoose.model('Venue');
+const CityWeather = mongoose.model('CityWeather');
+
 
 // getVenueWeather = async (city_id) => {
 //     const key = process.env.WEATHER_KEY;
@@ -33,10 +36,26 @@ exports.getVenueByName = async (req, res) => {
 exports.getWeatherByCity = async (req, res) => {
     const key = process.env.WEATHER_KEY;
     const {city_id} = req.params;
-
     const url = `http://api.openweathermap.org/data/2.5/weather?id=${city_id}&APPID=${key}`;
 
-    const response = await axios(url);
+    const previousWeather = await CityWeather.findOne({
+        id: city_id,
+        expires: {$gt: Date.now()}
+    });
 
-    res.json(response.data);
+    if (previousWeather) {
+        //found it, still valid just return it
+        res.json(previousWeather);
+    } else {
+        //not a thing, look it up
+        const response = await axios(url);
+
+        const weather = await  (new CityWeather({
+            ...response.data,
+            expires: Date.now() + 600000 // expires in 10 minutes
+        })).save();
+
+        res.json(weather);
+    }
+
 };
