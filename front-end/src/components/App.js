@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import DropDown from './DropDown';
 import WeatherDisplay from './WeatherDisplay';
+import Map from './Map';
 
 class App extends Component {
     state = {
@@ -29,6 +30,13 @@ class App extends Component {
                 <h1>MLB Venues</h1>
                 <DropDown venues={venues} getWeather={this.getWeather}/>
                 {weather ? <WeatherDisplay {...weather}/> : null}
+                <Map
+                    isMarkerShown={true}
+                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                    loadingElement={<div style={{ height: `100%` }} />}
+                    containerElement={<div style={{ height: `400px` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                />
             </div>
         );
     }

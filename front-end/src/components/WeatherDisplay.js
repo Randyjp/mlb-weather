@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {toTitleCase} from '../helpers';
 
 const WeatherDisplay = ({name, sys, weather, main, wind}) => {
     return (
         <div className={'weather-display'}>
-            <h2 className="city-name">{name}</h2>
-            <h3 className="weather-desc">{weather[0].description}</h3>
+            <h2 className="city-name">{toTitleCase(name)}</h2>
+            <h3 className="weather-desc">{toTitleCase(weather[0].description)}</h3>
             <span className="temp">{main.temp} kelvin</span>
             <span className="temp-max">{main.temp_max} kelvin</span>
             <span className="temp-min">{main.temp_min} kelvin</span>
