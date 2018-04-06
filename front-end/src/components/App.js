@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import DropDown from './DropDown';
 import WeatherDisplay from './WeatherDisplay';
+import VenueInfo from './VenueInfo';
 import Map from './Map';
 
 class App extends Component {
@@ -32,17 +33,20 @@ class App extends Component {
 
         if (selectedVenue) {
             return (
-                <Map
-                    isMarkerShown={true}
-                    googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${key}`}
-                    loadingElement={<div style={{height: `100%`}}/>}
-                    containerElement={<div style={{height: `400px`}}/>}
-                    mapElement={<div style={{height: `100%`}}/>}
-                    position={{
-                        lat: selectedVenue.location.coordinates[1],
-                        lng: selectedVenue.location.coordinates[0]
-                    }}
-                />
+                <Fragment>
+                    <VenueInfo name={selectedVenue.name} altitude={selectedVenue.altitude}/>
+                    <Map
+                        isMarkerShown={true}
+                        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${key}`}
+                        loadingElement={<div style={{height: `100%`}}/>}
+                        containerElement={<div style={{height: `400px`}}/>}
+                        mapElement={<div style={{height: `100%`}}/>}
+                        position={{
+                            lat: selectedVenue.location.coordinates[1],
+                            lng: selectedVenue.location.coordinates[0]
+                        }}
+                    />
+                </Fragment>
             );
         }
 
