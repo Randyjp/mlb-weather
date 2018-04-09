@@ -5,22 +5,25 @@ import {Grid, GridColumn, GridRow, Divider} from 'semantic-ui-react';
 
 import DropDown from './DropDown';
 import WeatherDisplay from './WeatherDisplay';
-import VenueInfo from './VenueInfo';
+import UnitSelector from './UnitSelector';
+// import VenueInfo from './VenueInfo';
 import Map from './Map';
 
 class App extends Component {
     state = {
         venues: [],
         selectedVenue: null,
-        weather: null
+        weather: null,
+        units: 'metric'
     };
-
     componentDidMount() {
         fetch('/venues')
             .then(res => res.json())
             .then(venues => this.setState({venues}));
     }
-
+    handleUnitChange = (units) => {
+        this.setState({units})
+    };
     getWeather = (city_id) => {
         fetch(`/city/${city_id}`)
             .then(res => res.json())
@@ -57,10 +60,13 @@ class App extends Component {
     };
 
     render() {
-        const {venues, weather} = this.state;
+        const {venues, weather, units} = this.state;
 
         return (
             <Grid container className="App">
+                <GridRow columns={1}>
+                    <UnitSelector handleUnitChange={this.handleUnitChange} units={units}/>
+                </GridRow>
                 <GridRow columns={2} centered stretched>
                     <GridColumn>
                         <h1>MLB Venues</h1>

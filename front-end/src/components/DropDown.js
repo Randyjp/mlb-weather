@@ -25,6 +25,7 @@ class DropDown extends React.Component {
         return (
             <Select
                 name={'form-field-name"'}
+                placeholder={'Select a stadium'}
                 value={value}
                 onChange={this.handleChange}
                 options={venues.map(venue => ({
