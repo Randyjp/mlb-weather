@@ -13,13 +13,13 @@ const WeatherDisplay = ({name, sys, weather, main, wind}) => {
                     style={{fontSize: '8em'}}
                 />
             </Image>
-            <Card.Content>
+            <Card.Content textAlign={'center'}>
                 <Card.Header>
                     {toTitleCase(name)}
                 </Card.Header>
                 <Statistic>
                     <Statistic.Value>{main.temp}°</Statistic.Value>
-                    <Statistic.Label>Kelvin</Statistic.Label>
+                    <Statistic.Label>Celsius</Statistic.Label>
                 </Statistic>
                 <h3 className="weather-desc">{toTitleCase(weather[0].description)}</h3>
                 <List>

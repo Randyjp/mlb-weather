@@ -26,8 +26,8 @@ exports.getVenueByName = async (req, res) => {
 
     const venue = await Venue.findOne({name: new RegExp(name, 'i')});
 
-    const url = `http://api.openweathermap.org/data/2.5/weather?id=${venue.open_wea_id}&APPID=${key}`;
-
+    const url = `http://api.openweathermap.org/data/2.5/weather?id=${venue.open_wea_id}&APPID=${key}&units=metric`;
+    console.log(url);
     const response = await axios(url);
 
     res.json(response.data);
@@ -36,7 +36,7 @@ exports.getVenueByName = async (req, res) => {
 exports.getWeatherByCity = async (req, res) => {
     const key = process.env.WEATHER_KEY;
     const {city_id} = req.params;
-    const url = `http://api.openweathermap.org/data/2.5/weather?id=${city_id}&APPID=${key}`;
+    const url = `http://api.openweathermap.org/data/2.5/weather?id=${city_id}&APPID=${key}&units=metric`;
 
     const previousWeather = await CityWeather.findOne({
         id: city_id,
