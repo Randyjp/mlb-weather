@@ -12,6 +12,7 @@ class DropDown extends React.Component {
         selectedOption: ''
     };
     handleChange = (selectedOption) => {
+        if (!selectedOption) return;
         this.setState({selectedOption});
         this.props.getWeather(selectedOption.value);
     };
