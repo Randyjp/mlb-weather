@@ -1,5 +1,8 @@
 import React, {Component, Fragment} from 'react';
 
+import {Grid, GridColumn, GridRow, Divider} from 'semantic-ui-react';
+
+
 import DropDown from './DropDown';
 import WeatherDisplay from './WeatherDisplay';
 import VenueInfo from './VenueInfo';
@@ -34,7 +37,7 @@ class App extends Component {
         if (selectedVenue) {
             return (
                 <Fragment>
-                    <VenueInfo name={selectedVenue.name} altitude={selectedVenue.altitude}/>
+                    {/*<VenueInfo name={selectedVenue.name} altitude={selectedVenue.altitude}/>*/}
                     <Map
                         isMarkerShown={true}
                         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${key}`}
@@ -57,12 +60,23 @@ class App extends Component {
         const {venues, weather} = this.state;
 
         return (
-            <div className="App">
-                <h1>MLB Venues</h1>
-                <DropDown venues={venues} getWeather={this.getWeather}/>
-                {weather ? <WeatherDisplay {...weather}/> : null}
-                {this.renderMap()}
-            </div>
+            <Grid container className="App">
+                <GridRow columns={2} centered stretched>
+                    <GridColumn>
+                        <h1>MLB Venues</h1>
+                        <DropDown venues={venues} getWeather={this.getWeather}/>
+                    </GridColumn>
+                </GridRow>
+                <Divider/>
+                <GridRow columns={2}>
+                    <GridColumn>
+                        {weather ? <WeatherDisplay {...weather}/> : null}
+                    </GridColumn>
+                    <GridColumn stretched>
+                        {this.renderMap()}
+                    </GridColumn>
+                </GridRow>
+            </Grid>
         );
     }
 }
