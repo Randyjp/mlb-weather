@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 
-import {Grid, GridColumn, GridRow, Divider} from 'semantic-ui-react';
+import {Grid, GridColumn, GridRow, Divider, Loader} from 'semantic-ui-react';
 
 
 import {UnitSystem} from '../enums';
@@ -16,21 +16,28 @@ class App extends Component {
         venues: [],
         selectedVenue: null,
         weather: null,
-        units: UnitSystem.enumValueOf(getLocalStorage('units')) || UnitSystem.METRIC
+        units: UnitSystem.enumValueOf(getLocalStorage('units')) || UnitSystem.METRIC,
+        loading: false,
     };
+
     componentDidMount() {
         fetch('/venues')
             .then(res => res.json())
             .then(venues => this.setState({venues}));
     }
+
     handleUnitChange = (units) => {
         setLocalStorage('units', units.name);
         this.setState({units})
     };
     getWeather = (city_id) => {
+        this.setState({loading: true});
         fetch(`/city/${city_id}`)
             .then(res => res.json())
-            .then(weather => this.setState({weather}));
+            .then(weather => this.setState({
+                weather,
+                loading: false
+            }));
 
         const {venues} = this.state;
         const selectedVenue = venues.find(venue => venue.open_wea_id === city_id);
@@ -63,10 +70,11 @@ class App extends Component {
     };
 
     render() {
-        const {venues, weather, units} = this.state;
+        const {venues, weather, units, loading} = this.state;
 
         return (
             <Grid container className="App">
+                <Loader active={loading} size={'massive'}/>
                 <GridRow columns={1}>
                     <UnitSelector handleUnitChange={this.handleUnitChange} units={units}/>
                 </GridRow>
