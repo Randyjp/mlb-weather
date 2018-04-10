@@ -3,6 +3,7 @@ import React, {Component, Fragment} from 'react';
 import {Grid, GridColumn, GridRow, Divider} from 'semantic-ui-react';
 
 
+import {UnitSystem} from '../enums';
 import DropDown from './DropDown';
 import WeatherDisplay from './WeatherDisplay';
 import UnitSelector from './UnitSelector';
@@ -14,7 +15,7 @@ class App extends Component {
         venues: [],
         selectedVenue: null,
         weather: null,
-        units: 'metric'
+        units: UnitSystem.METRIC
     };
     componentDidMount() {
         fetch('/venues')
@@ -76,7 +77,7 @@ class App extends Component {
                 <Divider/>
                 <GridRow columns={2}>
                     <GridColumn>
-                        {weather ? <WeatherDisplay {...weather}/> : null}
+                        {weather ? <WeatherDisplay {...weather} units={units}/> : null}
                     </GridColumn>
                     <GridColumn stretched>
                         {this.renderMap()}

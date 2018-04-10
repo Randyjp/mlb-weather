@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Card, Image, Statistic, List, ListItem} from 'semantic-ui-react';
 
-import {toTitleCase} from '../helpers';
+import {SpeedScales, TemperatureScales, UnitSystem} from '../enums';
+import {toTitleCase, formatSpeed, formatTemperature} from '../helpers';
 
-const WeatherDisplay = ({name, sys, weather, main, wind}) => {
+const WeatherDisplay = ({name, sys, weather, main, wind, units}) => {
+    const temperature = formatTemperature(main.temp, units);
+    const speed = formatSpeed(wind.speed, units);
+    const tempScale = units === UnitSystem.METRIC ? TemperatureScales.METRIC : TemperatureScales.IMPERIAL;
+    const speedScale = units === UnitSystem.METRIC ? SpeedScales.METRIC : SpeedScales.IMPERIAL;
+
     return (
         <Card className={'weather-display'} color={'yellow'}>
             <Image centered circular style={{backgroundColor: 'white'}}>
@@ -18,8 +24,8 @@ const WeatherDisplay = ({name, sys, weather, main, wind}) => {
                     {toTitleCase(name)}
                 </Card.Header>
                 <Statistic>
-                    <Statistic.Value>{main.temp}°</Statistic.Value>
-                    <Statistic.Label>Celsius</Statistic.Label>
+                    <Statistic.Value>{temperature}°</Statistic.Value>
+                    <Statistic.Label>{tempScale}</Statistic.Label>
                 </Statistic>
                 <h3 className="weather-desc">{toTitleCase(weather[0].description)}</h3>
                 <List>
@@ -29,7 +35,7 @@ const WeatherDisplay = ({name, sys, weather, main, wind}) => {
                     <ListItem>Pressure: {main.pressure} hPa</ListItem>
                 </List>
                 <List>
-                    <ListItem>Wind-Speed: {wind.speed} meter/sec</ListItem>
+                    <ListItem>Wind-Speed: {`${speed} ${speedScale}`}</ListItem>
                 </List>
                 <List>
                     <ListItem>Wind-degree: {wind.deg}°</ListItem>
