@@ -4,6 +4,7 @@ import {Grid, GridColumn, GridRow, Divider} from 'semantic-ui-react';
 
 
 import {UnitSystem} from '../enums';
+import {setLocalStorage, getLocalStorage} from '../helpers';
 import DropDown from './DropDown';
 import WeatherDisplay from './WeatherDisplay';
 import UnitSelector from './UnitSelector';
@@ -15,7 +16,7 @@ class App extends Component {
         venues: [],
         selectedVenue: null,
         weather: null,
-        units: UnitSystem.METRIC
+        units: UnitSystem.enumValueOf(getLocalStorage('units')) || UnitSystem.METRIC
     };
     componentDidMount() {
         fetch('/venues')
@@ -23,6 +24,7 @@ class App extends Component {
             .then(venues => this.setState({venues}));
     }
     handleUnitChange = (units) => {
+        setLocalStorage('units', units.name);
         this.setState({units})
     };
     getWeather = (city_id) => {

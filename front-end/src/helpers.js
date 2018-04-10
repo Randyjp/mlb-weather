@@ -25,3 +25,11 @@ export function formatSpeed(speed, scale) {
 
     return Math.round(speed * 100) / 100;
 }
+
+export function setLocalStorage(objName, value) {
+    localStorage.setItem(objName, value);
+}
+
+export function getLocalStorage(objName) {
+    return localStorage.getItem(objName);
+}
