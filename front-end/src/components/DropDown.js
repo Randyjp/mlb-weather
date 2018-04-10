@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Select from 'react-select';
 import {toTitleCase} from '../helpers';
-import {Loader} from 'semantic-ui-react';
 
 import 'react-select/dist/react-select.css';
 

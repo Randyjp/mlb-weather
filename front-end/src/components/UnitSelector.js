@@ -22,4 +22,8 @@ const UnitSelector = ({handleUnitChange, units}) => (
 
 );
 
+UnitSelector.propTypes = {
+    handleUnitChange: PropTypes.func.isRequired,
+    units: PropTypes.instanceOf(UnitSystem).isRequired
+};
 export default UnitSelector;
