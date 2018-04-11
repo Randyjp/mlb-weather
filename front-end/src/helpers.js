@@ -33,3 +33,8 @@ export function setLocalStorage(objName, value) {
 export function getLocalStorage(objName) {
     return localStorage.getItem(objName);
 }
+
+export function getRandomItem(array) {
+    if (array.length < 1) return [];
+    return array[Math.floor(Math.random() * array.length)];
+}
