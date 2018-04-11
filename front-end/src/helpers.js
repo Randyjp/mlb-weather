@@ -1,6 +1,9 @@
 import {UnitSystem} from './enums';
 
 export function toTitleCase(str) {
+    if(typeof str !== 'string') {
+        throw new TypeError('toTitleCase only takes strings');
+    }
     return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
