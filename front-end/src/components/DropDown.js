@@ -14,7 +14,7 @@ class DropDown extends React.Component {
     handleChange = (selectedOption) => {
         if (!selectedOption) return;
         this.setState({selectedOption});
-        this.props.getWeather(selectedOption.value);
+        this.props.getWeather(selectedOption.city_id);
     };
 
     render() {
@@ -29,7 +29,8 @@ class DropDown extends React.Component {
                 value={value}
                 onChange={this.handleChange}
                 options={venues.map(venue => ({
-                    value: venue.open_wea_id,
+                    city_id: venue.open_wea_id,
+                    value: venue.name,
                     label: toTitleCase(venue.name)
                 }))}
             />
