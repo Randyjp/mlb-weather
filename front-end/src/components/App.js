@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 
-import {Grid, GridColumn, GridRow, Divider, Loader} from 'semantic-ui-react';
+import {Grid, GridColumn, GridRow, Divider, Loader, Menu} from 'semantic-ui-react';
 
 
 import {UnitSystem} from '../enums';
@@ -8,6 +8,7 @@ import {setLocalStorage, getLocalStorage} from '../helpers';
 import DropDown from './DropDown';
 import WeatherDisplay from './WeatherDisplay';
 import UnitSelector from './UnitSelector';
+import Footer from './Footer';
 // import VenueInfo from './VenueInfo';
 import Map from './Map';
 
@@ -73,7 +74,8 @@ class App extends Component {
         const {venues, weather, units, loading} = this.state;
 
         return (
-            <Grid container className="App">
+            <div className='Site'>
+            <Grid container className="App Site-content">
                 <Loader active={loading} size={'massive'}/>
                 <GridRow columns={1}>
                     <UnitSelector handleUnitChange={this.handleUnitChange} units={units}/>
@@ -94,6 +96,9 @@ class App extends Component {
                     </GridColumn>
                 </GridRow>
             </Grid>
+                <Footer/>
+
+            </div>
         );
     }
 }
