@@ -10,7 +10,9 @@ export function toTitleCase(str) {
 }
 
 export function formatTemperature(temp, scale) {
-    if (typeof temp !== 'number') return 0;
+    if (typeof temp !== 'number') {
+        throw new TypeError('temperature must be a number');
+    }
 
     if (scale === UnitSystem.IMPERIAL) {
         temp = (temp * 9 / 5 + 32);
