@@ -1,4 +1,4 @@
-import {toTitleCase, formatTemperature, formatSpeed} from './../../helpers';
+import {toTitleCase, formatTemperature, formatSpeed, getRandomItem} from './../../helpers';
 import {UnitSystem} from './../../enums';
 
 describe('toTitleCase helper', () => {
@@ -71,5 +71,37 @@ describe('formatSpeed helper', () => {
         expect(() => {
             formatSpeed(speed, UnitSystem.METRIC)
         }).toThrow(TypeError);
+    });
+});
+
+describe('getRandomItem helper', () => {
+    test('Should return element from within array', () => {
+        const array = [1, 2, 3];
+        const item = getRandomItem(array);
+
+        expect(array).toContain(item);
+    });
+
+    test('Should return element from within array', () => {
+        const array = [1, 2, 3];
+        const item = getRandomItem(array);
+
+        expect(array).toContain(item);
+    });
+
+    test('Should throw exception if argument is not array', () => {
+        const array = {};
+
+        expect(() => {
+            getRandomItem(array);
+        }).toThrow(TypeError);
+    });
+
+    test('Should throw exception if array is empty', () => {
+        const array = [];
+
+        expect(() => {
+            getRandomItem(array);
+        }).toThrow(RangeError);
     });
 });

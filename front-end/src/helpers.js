@@ -41,6 +41,11 @@ export function getLocalStorage(objName) {
 }
 
 export function getRandomItem(array) {
-    if (array.length < 1) return [];
+    if (!Array.isArray(array)) {
+        throw new TypeError('getRandomItem expects an array');
+    }
+    if (array.length < 1) {
+        throw new RangeError('array most me non-empty');
+    }
     return array[Math.floor(Math.random() * array.length)];
 }
