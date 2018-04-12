@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 
-import {Grid, GridColumn, GridRow, Divider, Loader, Menu} from 'semantic-ui-react';
+import {Grid, GridColumn, GridRow, Divider, Loader} from 'semantic-ui-react';
 
 
 import {UnitSystem} from '../enums';

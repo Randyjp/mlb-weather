@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Card, Image, Statistic, List, ListItem} from 'semantic-ui-react';
+import {Card, CardHeader,Image, Statistic, List, ListItem} from 'semantic-ui-react';
 
 import {SpeedScales, TemperatureScales, UnitSystem} from '../enums';
 import {toTitleCase, formatSpeed, formatTemperature} from '../helpers';
@@ -20,9 +20,9 @@ const WeatherDisplay = ({name, sys, weather, main, wind, units}) => {
                 />
             </Image>
             <Card.Content textAlign={'center'}>
-                <Card.Header>
+                <CardHeader>
                     {toTitleCase(name)}
-                </Card.Header>
+                </CardHeader>
                 <Statistic>
                     <Statistic.Value>{temperature}°</Statistic.Value>
                     <Statistic.Label>{tempScale}</Statistic.Label>
@@ -47,7 +47,7 @@ const WeatherDisplay = ({name, sys, weather, main, wind, units}) => {
 
 WeatherDisplay.propTypes = {
     base: PropTypes.string,
-    clouds: PropTypes.object.isRequired,
+    clouds: PropTypes.object,
     cod: PropTypes.number,
     coord: PropTypes.object,
     dt: PropTypes.number,
