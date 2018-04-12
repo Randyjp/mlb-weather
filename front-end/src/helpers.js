@@ -22,8 +22,9 @@ export function formatTemperature(temp, scale) {
 }
 
 export function formatSpeed(speed, scale) {
-    if (typeof speed !== 'number') return 0;
-
+    if (typeof speed !== 'number') {
+        throw new TypeError('speed must be a number');
+    }
     if (scale === UnitSystem.IMPERIAL) {
         speed = (speed * 2.24);
     }
