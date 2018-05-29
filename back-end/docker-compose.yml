@@ -1,10 +1,15 @@
-version: '2.1'
+version: '3'
 
 services:
-  mlb-weather:
+  backend:
     image: mlb-weather
     build: .
     environment:
       NODE_ENV: production
     ports:
       - 3001:3001
+
+networks:
+  default:
+    external:
+      name: mlbw-network
